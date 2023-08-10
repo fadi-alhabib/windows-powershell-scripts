@@ -1,5 +1,5 @@
 # Get the list of folders in the current working directory
-$folders = Get-ChildItem -Directory | Select-Object -ExpandProperty Name
+$folders = Get-ChildItem -Directory 
 
 # Initialize the selected index
 $selectedIndex = 0
@@ -28,15 +28,12 @@ function ShowOptions {
     }
 }
 
-# Show the initial options
-Clear-Host
-Write-Host "$colorCyan Select a folder to navigate to:$colorReset"
 ShowOptions
 
 # Loop to handle user input
 while ($true) {
     if ($folders.Length -eq 0) {
-        Write-Host "$colorCyan No folders found $colorReset"
+        Write-Host "$colorGreen No folders found $colorReset"
         break
     }
 
@@ -57,7 +54,10 @@ while ($true) {
     
     # Clear the console and show the updated options
     Clear-Host
-    Write-Host "$colorCyan Select a folder to navigate to:$colorReset"
+    $foldersCount = $folders.Length
+    if ($foldersCount -gt 0) {
+        Write-Host "$colorCyan We found $foldersCount folders, Select a folder to navigate to:$colorReset" 
+    }
     ShowOptions
 }
 
